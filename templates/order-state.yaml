@@ -1,0 +1,114 @@
+# 复制到测试/订单目录再填写，公共 Skill 不保存客户数据。
+# null 是未知；旧订单不强制迁移，下一轮可引用旧路径并填此结构。
+schema_version: 2
+order_id: null
+mode: single  # single | duo (legacy) | group | edit
+requested_output_count: 1
+requested_aspect_ratio: "1:1"
+style_preset: round-head-soft-fur-v1
+prompt_template:
+  version: stable-pet-v2
+  source: references/prompt-recipes.md
+  mode: null  # N | E | C
+  source_sha256: null  # 仅在实际计算后填写
+round_contract:
+  round_id: null
+  parent_round: null
+  user_request: null
+  baseline_paths: []  # 本轮原始 E/A 等；不是最新失败图
+  changes_allowed: []
+  locked_features: []
+  interpretation_of_step: null  # 半档/一档的本轮解释及依据
+  overrides: []  # 用户覆盖默认条款的原因
+subjects: []
+# 每只主体填写：
+# - id: pet1
+#   species: cat
+#   identity_images: []
+#   selected_artwork: null
+#   selected_by_user: false
+#   approved_aspects: []  # identity | pose | proportion | material
+#   observed_traits: {coat: null, eyes: null, nose: null, ears: null, muzzle: null, markings: null, coat_length: null}
+#   user_color_correction: null
+#   uncertain_traits: []
+#   pose_basis: null
+#   proportion_basis: preserve  # target | preserve
+#   proportion_anchor: null
+#   target_height_ratio: null  # preserve 不填新作默认值
+#   target_width_ratio: null
+#   target_body_height_scale: null  # 相对本轮底图，不能逐轮累乘
+#   target_body_width_scale: null
+style_images: []
+edit_target: null
+generation_strategy:
+  path: null  # layout_rebuild | local_edit | composite
+  input_roles: []  # 固定参照角色与实际路径；每次提交顺序在 history
+  reason: null
+  geometry_changes_allowed: []
+requested_changes: []
+locked_features: []
+layout:
+  preset: null  # balanced | large-small-snuggle | custom
+  main_subject: null
+  placements: []  # 每只的左右位置、接触对象和接触部位
+  relative_scales: []  # 与谁相比、按主体高度或何种口径、值、用户指定或本轮估计
+  shared_ground_subjects: []
+  framing: centered-square-balanced-opposite-margins
+latest_candidate: null
+last_approved: null
+history: []
+# 每次调用填：
+# - attempt: 1
+#   round_id: null
+#   parent: null
+#   anchors: []  # 每轮保留的 E/A/P/T/G
+#   candidate_reference: null  # C 仅指示偏差/布局
+#   submitted_inputs: []  # 按真实顺序：index, path, roles, subject_id, sha256（如实际计算）
+#   prompt_file: null  # 实际完整正文，不只保存修改短句
+#   prompt_sha256: null
+#   template_version: stable-pet-v2
+#   changed_fields: []
+#   correction_reason: null
+#   tool: null
+#   model: null  # 仅工具实际披露时填写
+#   output: null
+#   actual_dimensions: null
+#   actual_format: null
+#   visual_review: null
+review:
+  visually_inspected: false
+  per_subject: []  # 每只分别检查身份、比例、姿态；不得只给整组笼统通过
+  # - subject_id: pet1
+  #   basis: preserve
+  #   anchor: null
+  #   identity: pending
+  #   proportion: pending
+  #   pose: pending
+  #   measurements:
+  #     image_dimensions: null
+  #     core_head_height: null
+  #     body_height: null
+  #     cheek_width_without_ears: null
+  #     torso_width_including_visible_haunch: null
+  #     height_ratio: null
+  #     width_ratio: null
+  #     landmark_coordinates: null
+  #     uncertainty: null
+  #     method: visual_estimate
+  #   thumbnail_judgment: null
+  #   reason: null
+  fur: pending
+  layout_and_anatomy: pending
+  framing: pending
+  edit_scope: pending
+  overall: pending  # passed | needs_revision | uncertain
+  user_approved: false
+budget:
+  external_paid_api_authorized: false
+  max_targeted_retries_per_round: 2
+  max_generation_attempts_per_output: 3
+  attempts_used: 0
+  stop_reason: null  # passed | budget_exhausted | tool_error | user_stopped
+status: awaiting_inputs
+# awaiting_inputs | ready | generated | needs_revision | awaiting_review |
+# approved | delivered | prompt_only | blocked

@@ -1,0 +1,14 @@
+# Local state and customer artifacts do not belong in the skill repository.
+.DS_Store
+.env
+.env.*
+!.env.example
+*.local
+*.local.*
+/output/
+/outputs/
+/orders/
+/pet-orders/
+/tmp/
+__pycache__/
+*.pyc
